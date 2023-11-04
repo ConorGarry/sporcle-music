@@ -29,18 +29,16 @@ else if (iframeMedia[0].src.includes("soundcloud")) {
   iframeMedia[0].id = "soundcloud-widget";
 }
 
-// Run local script ./soundcloud-api.js
-const script = document.createElement("script");
-script.src = browser.runtime.getURL("./soundcloud-api.js");
-(document.head || document.body || document.documentElement).appendChild(script);
-script.onload = function() {
+const soundCloudJsRemote = "https://w.soundcloud.com/player/api.js";
+const scScript = document.createElement("script");
+scScript.src = soundCloudJsRemote;
+(document.head || document.body || document.documentElement).appendChild(scScript);
+scScript.onload = function() {
   console.log("soundcloud-api.js loaded");
   const scType = typeof SC;
-  console.log("scType: " + scType);
   scWidget = SC.Widget("soundcloud-widget");
   console.log("scWidget: " + scWidget);
-  // scWidget.play();
-}
+};
 
 
 // Get element Table by id gameTable and fetch all the
