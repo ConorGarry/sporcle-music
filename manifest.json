@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "SporcleMusic",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "<all_urls>"
+  ],
+  "description": "Makes timecodes clickable in the Sporcle music quizzes",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["sporcle-music.js", "soundcloud-api.js"]
+    }
+  ]
+}
+
