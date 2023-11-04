@@ -20,7 +20,6 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-
 const iframeMedia = document.querySelectorAll('iframe[src*="youtube.com"], iframe[src*="soundcloud.com"]');
 console.log(`iframeMedia: ${iframeMedia[0].src}`);
 if (iframeMedia[0].src.includes("youtube")) {
@@ -93,8 +92,7 @@ function parseTableTimeCodes() {
 }
 
 function getMediaSource() {
-  const embedMedia = document.getElementById("embedMedia");
-  const iframe = embedMedia.getElementsByTagName("iframe")[0];
+  const iframe = iframeMedia[0];
   // if not already, add enablejsapi=1 to the src of the iframe.
   if (!iframe.src.includes("enablejsapi=1")) {
     iframe.src = iframe.src + "?enablejsapi=1";
@@ -106,14 +104,13 @@ function getMediaSource() {
 // In the page there will be a div with id `embedMedia` that will contain either a YouTube
 // video or SoundCloud audio. This function will go to the timecode of the media:
 function goToTimeCode(timeCode) {
-  const embedMedia = document.getElementById("embedMedia");
-  const iframe = embedMedia.getElementsByTagName("iframe")[0];
-  const src = iframe.src;
+  const src = iframeMedia[0].src;
   const tcSeconds = timecodeToSeconds(timeCode) - 1;
   if (isNaN(tcSeconds)) {
     return;
   }
 
+  const iframe = iframeMedia[0];
   if (src.includes("youtube")) {
     goToYouTubeTimeCode(iframe, tcSeconds);
   }
